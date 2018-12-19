@@ -10,6 +10,8 @@ client.on('ready', () => {
     client.guilds.forEach((guild) => {
         console.log(" - " + guild.name)
     });
+
+    //Runs everyday at 7:30 am
     cron.schedule("55 10 * * *",function() {
         grabWeather(sendMorningMessage)
     })
