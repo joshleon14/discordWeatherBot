@@ -54,7 +54,7 @@ function sendMorningMessage(weatherString) {
     let sun = "☀️ \n";
     let date = getTodaysDate()
     console.log(introduction + sun + date + weatherString)
-    var helpersChannel = client.channels.get(process.env.helpers_channel_id);
+    var helpersChannel = client.channels.get(process.env.weather_channel_id);
     helpersChannel.send(introduction + sun + date + weatherString);
 }
 
@@ -66,6 +66,7 @@ function getTodaysDate() {
 
 
 function processCommand(msg) {
+    var weather = client.channels.get(process.env.weather_channel_id);
     let fullCommand = msg.content.substr(1);
     let splitCommand = fullCommand.split(" ");
     let primaryCommand = splitCommand[0]
@@ -73,9 +74,9 @@ function processCommand(msg) {
     if (primaryCommand == "weather") {
         sendCurrentWeather(msg)
     } else if (primaryCommand == "help") {
-        msg.channel.send("To get the current weather, please type the command `!weather`.")
+        weather.send("To get the current weather, please type the command `!weather`.")
     } else {
-        msg.channel.send("I don't understand the command. Try `!help` or `!weather`")
+        weather.send("I don't understand the command. Try `!help` or `!weather`")
     }
 }
 
